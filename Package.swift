@@ -18,6 +18,7 @@ let package = Package(
             name: "GroceryAppServer",
             dependencies: [
                 .product(name: "Vapor", package: "vapor"),
+                .product(name: "JWT", package: "jwt"),
                 .product(name: "Fluent", package: "fluent"),
                 .product(name: "FluentPostgresDriver", package: "fluent-postgres-driver"),
                 .product(name: "NIOCore", package: "swift-nio"),
