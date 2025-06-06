@@ -13,7 +13,34 @@ class UserController: RouteCollection, @unchecked Sendable {
     
     func boot(routes: any RoutesBuilder) throws {
         let api = routes.grouped("api")
+        // Register
         api.post("register", use: register)
+        // Login
+        api.post("login", use: login)
+    }
+    
+    
+    func login(req: Request) async throws -> LoginResponseDTO {
+        
+        let user = try req.content.decode(User.self)
+        
+        guard let exitingUser = try await User.query(on: req.db).filter(\.$username == user.username).first() else {
+            throw Abort(.badRequest)
+        }
+        
+        let result = try await req.password.async.verify(user.password, created: exitingUser.password)
+        
+        guard result else { throw Abort(.unauthorized) }
+        
+        let authPayload = try AuthPayload(
+            expiration: .init(value: .distantFuture),
+            userId: exitingUser.requireID())
+        
+        
+        return try await LoginResponseDTO(
+            error: false,
+            token: req.jwt.sign(authPayload),
+            userId: exitingUser)
     }
     
     func register(req: Request) async throws -> RegisterResponseDTO {
