@@ -22,6 +22,9 @@ public func configure(_ app: Application) async throws {
     
     //MARK: - Register Migrations
     app.migrations.add(CreateUsersTableMigration())
+    
+    //Register Controller
+    try app.register(collection: UserController())
 
     // register routes
     try routes(app)
