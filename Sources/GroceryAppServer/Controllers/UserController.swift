@@ -8,6 +8,7 @@
 import Foundation
 import Fluent
 import Vapor
+import GroceryAppSharedDTO
 
 class UserController: RouteCollection, @unchecked Sendable {
     
@@ -40,7 +41,7 @@ class UserController: RouteCollection, @unchecked Sendable {
         return try await LoginResponseDTO(
             error: false,
             token: req.jwt.sign(authPayload),
-            userId: exitingUser)
+            userId: exitingUser.requireID())
     }
     
     func register(req: Request) async throws -> RegisterResponseDTO {
