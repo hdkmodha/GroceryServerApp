@@ -27,7 +27,11 @@ public func configure(_ app: Application) async throws {
     
     //Register Controller
     try app.register(collection: UserController())
+    try app.register(collection: GroceryController())
     await app.jwt.keys.add(hmac: "secret", digestAlgorithm: .sha256)
+    
+    //Middlewares
+    app.middleware.use(CustomErrorMiddleware())
 
     // register routes
     try routes(app)
