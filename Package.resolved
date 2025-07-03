@@ -60,8 +60,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/hdkmodha/GroceryAppSharedDTO.git",
       "state" : {
-        "revision" : "e0c3225d3d443cf012b1ab9b8eaa26d814366394",
-        "version" : "1.1.0"
+        "revision" : "1e60bdb6b1b76a4f4d605e6fdb0cb834ddc599d1",
+        "version" : "1.2.1"
       }
     },
     {
