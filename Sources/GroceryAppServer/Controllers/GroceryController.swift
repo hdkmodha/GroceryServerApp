@@ -13,7 +13,7 @@ import Fluent
 final class GroceryController: RouteCollection, @unchecked Sendable {
     
     func boot(routes: any RoutesBuilder) throws {
-        let api = routes.grouped("api", "users", ":userId")
+        let api = routes.grouped("api", "users", ":userId").grouped(AuthMiddleware())
         
         //api/users/userId/createGroceryCategory
         api.post("grocery-categories", use: createGroceryCategory)
