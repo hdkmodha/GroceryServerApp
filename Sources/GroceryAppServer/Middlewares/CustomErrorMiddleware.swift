@@ -24,7 +24,7 @@ struct CustomErrorMiddleware: AsyncMiddleware {
                 message = "Internal Server Error"
             }
 
-            let errorResponse = BaseResponse<String>.failure( message: message, status: Int(status.code))
+            let errorResponse = BaseResponse<String>.failure( message: message, status: status)
             let response = Response(status: status)
             try response.content.encode(errorResponse)
             return response

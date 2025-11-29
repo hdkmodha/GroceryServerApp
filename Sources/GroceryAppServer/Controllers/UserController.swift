@@ -39,7 +39,6 @@ class UserController: RouteCollection, @unchecked Sendable {
         
         
         return try await LoginResponseDTO(
-            error: false,
             token: req.jwt.sign(authPayload),
             userId: exitingUser.requireID())
     }
@@ -56,7 +55,7 @@ class UserController: RouteCollection, @unchecked Sendable {
             throw Abort(.conflict, reason: "username already taken.")
         }
         
-        user.password = try await req.password.async .hash(user.password)
+        user.password = try await req.password.async.hash(user.password)
         
         try await user.save(on: req.db)
         
